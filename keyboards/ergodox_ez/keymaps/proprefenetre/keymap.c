@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_F,     KC_G,     KC_C,     KC_R,     KC_L,    KC_SLSH,
                     KC_D,       KC_H,     KC_T,     KC_N,     KC_S,    KC_MINS,
         MO(MCRO),   KC_B,     KC_M,     KC_W,     KC_V,     KC_Z,    KC_RSFT,
-                    KC_NO,    KC_RALT,  KC_RGUI,  KC_NO,   MO(SYMB),
+                    KC_LEAD,    KC_RALT,  KC_RGUI,  KC_NO,   MO(SYMB),
 
         // thumbs
         KC_DEL,            CTL_T(KC_ESC),
@@ -201,3 +201,21 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
   return state;
 };
+
+LEADER_EXTERNS();
+void matrix_scan_user(void){
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_Q) {
+      SEND_STRING(SS_RCTL("q"));
+    }
+    SEQ_ONE_KEY(KC_D) {
+      SEND_STRING(SS_RCTL("d"));
+    }
+    SEQ_ONE_KEY(KC_T) {
+      SEND_STRING("LEADER KEY TEST");
+    }
+  }
+}
