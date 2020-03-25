@@ -11,28 +11,14 @@ enum keycodes {
   M_BZK,
   M_DEF,
   M_ROV,
-  M_DEAD_Q,
-  M_DEAD_A,
   DYNAMIC_MACRO_RANGE,
 };
 
-#include "dynamic_macro.h"
-
-enum {
-  ESC_GRAVE,
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
-};
 
 // keymaps
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(
 
-        // left hand
-        /* TD(ESC_GRAVE),     KC_1,     KC_2,     KC_3,     KC_4,    KC_5,  KC_NO, */
         KC_GESC,     KC_1,     KC_2,     KC_3,     KC_4,    KC_5,  KC_NO,
         KC_TAB,      KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,    KC_Y,  TG(MOVE),
         KC_LCTL,     KC_A,     KC_O,     KC_E,     KC_U,    KC_I,
@@ -61,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // left hand
         KC_GRV,   KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______,
-        M_DEAD_Q,  M_DEAD_A,  _______,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,
+        _______,  _______,  _______,  KC_LCBR,  KC_RCBR,  KC_PIPE,  _______,
         _______,  _______,  _______,  KC_LPRN,  KC_RPRN,  KC_GRV,
         _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  KC_TILD,  _______,
         _______,  _______,  _______,  _______,  _______,
@@ -140,25 +126,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(MCRO) ? DYN_REC_STOP : keycode);
+  uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
   if (!process_record_dynamic_macro(macro_kc, record)) {
         return false;
   }
   switch (keycode) {
-  case M_DEAD_Q:
-    if (record->event.pressed) {
-      SEND_STRING("\"" SS_TAP(X_SPACE));
-    } else {
-      // when keycode is released
-    }
-    break;
-  case M_DEAD_A:
-    if (record->event.pressed) {
-      SEND_STRING("\'" SS_TAP(X_SPACE));
-    } else {
-      // when keycode is released
-    }
-    break;
   case M_GMAIL:
     if (record->event.pressed) {
       // when keycode is pressed

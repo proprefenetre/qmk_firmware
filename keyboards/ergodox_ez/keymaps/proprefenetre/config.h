@@ -4,5 +4,6 @@
 #include QMK_KEYBOARD_CONFIG_H
 
 #define NO_ACTION_MACRO
+#define DYNAMIC_MACRO_USER_CALL
 
 #endif
