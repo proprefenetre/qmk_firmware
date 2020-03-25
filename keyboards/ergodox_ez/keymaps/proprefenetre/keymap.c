@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(
 
         KC_GESC,     KC_1,     KC_2,     KC_3,     KC_4,    KC_5,  KC_NO,
-        KC_TAB,      KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,    KC_Y,  TG(MOVE),
+        KC_TAB,      KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,    KC_Y,  KC_NO,
         KC_LCTL,     KC_A,     KC_O,     KC_E,     KC_U,    KC_I,
         KC_LSFT,     KC_SCLN,  KC_Q,     KC_J,     KC_K,    KC_X,  MO(MCRO),
         MO(MOVE),    KC_NO,    KC_LGUI,  KC_LALT,  KC_SPC,
@@ -29,13 +29,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT,  KC_DEL,
         KC_HOME,
         LT(SYMB,KC_BSPC),  KC_RCTL,  KC_END,
-
+        
         // right hand
         KC_NO,      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,    KC_EQL,
-        TG(SYMB),   KC_F,     KC_G,     KC_C,     KC_R,     KC_L,    KC_SLSH,
-                    KC_D,     KC_H,     KC_T,     KC_N,     KC_S,    KC_MINS,
+        KC_NO,      KC_F,     KC_G,     KC_C,     KC_R,     KC_L,    KC_SLSH,
+                    KC_D,       KC_H,     KC_T,     KC_N,     KC_S,    KC_MINS,
         MO(MCRO),   KC_B,     KC_M,     KC_W,     KC_V,     KC_Z,    KC_RSFT,
-                              KC_NO,    KC_RALT,  KC_RGUI,  KC_NO,   MO(SYMB),
+                    KC_NO,    KC_RALT,  KC_RGUI,  KC_NO,   MO(SYMB),
 
         // thumbs
         KC_DEL,            CTL_T(KC_ESC),
@@ -98,37 +98,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [MCRO] = LAYOUT_ergodox(
 
-        // left hand
-        _______,  M_GMAIL,  M_BZK,    M_DEF,    M_ROV,    _______,  DYN_REC_START1,
-        _______,  _______,  _______,  _______,  _______,  _______,  DYN_MACRO_PLAY1,
-        _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,
+                            // left hand
+                            _______,  M_GMAIL,  M_BZK,    M_DEF,    M_ROV,    _______,  DYN_REC_START1,
+                            _______,  _______,  _______,  _______,  _______,  _______,  DYN_MACRO_PLAY1,
+                            _______,  _______,  _______,  _______,  _______,  _______,
+                            _______,  _______,  _______,  _______,  _______,  _______,  _______,
+                            _______,  _______,  _______,  _______,  _______,
 
-        // thumbs
-        _______,  _______,
-        _______,
-        _______,  _______,  _______,
+                            // thumbs
+                            _______,  _______,
+                            _______,
+                            _______,  _______,  _______,
 
-        // right hand
-        DYN_REC_START2,   _______,  _______,  _______,  _______,  _______,  _______,
-        DYN_MACRO_PLAY2,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,          _______,  _______,  _______,  _______,  _______,
-        _______,          _______,  _______,  _______,  _______,  _______,  _______,
-        _______,          _______,  _______,  _______,  _______,
+                            // right hand
+                            DYN_REC_START2,   _______,  _______,  _______,  _______,  _______,  _______,
+                            DYN_MACRO_PLAY2,  _______,  _______,  _______,  _______,  _______,  _______,
+                            _______,          _______,  _______,  _______,  _______,  _______,
+                            _______,          _______,  _______,  _______,  _______,  _______,  _______,
+                            _______,          _______,  _______,  _______,  _______,
 
-        // thumbs
-        _______,  _______,
-        _______,
-        _______,  _______,  _______
+                            // thumbs
+                            _______,  _______,
+                            _______,
+                            _______,  _______,  _______
     ),
 };
 
 // Macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
-  if (!process_record_dynamic_macro(macro_kc, record)) {
-        return false;
+  uint16_t macro_kc = (keycode == MO(MCRO) ? DYN_REC_STOP : keycode);
+  if (!process_dynamic_macro(macro_kc, record)) {
+    return false;
   }
   switch (keycode) {
   case M_GMAIL:
